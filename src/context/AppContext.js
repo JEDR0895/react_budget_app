@@ -84,7 +84,7 @@ const initialState = {
         { id: "Finance", name: 'Finance', cost: 300 },
         { id: "Sales", name: 'Sales', cost: 70 },
         { id: "Human Resource", name: 'Human Resource', cost: 0 },
-        { id: "IT", name: 'IT', cost: 19500 },
+        { id: "IT", name: 'IT', cost: 490 },
     ],
     Currency: '£'
 };
@@ -97,10 +97,16 @@ export const AppContext = createContext();
 export const AppProvider = (props) => {
     // 4. Sets up the app state. takes a reducer, and an initial state
     const [state, dispatch] = useReducer(AppReducer, initialState);
+
+    // Adding setBudget to dispatch
+    const setBudget = (newBudget) => {
+        dispatch({ type: 'SET_BUDGET', payload: newBudget });
+    };
+
     let remaining = 0;
 
     if (state.expenses) {
-            const totalExpenses = state.expenses.reduce((total, item) => {
+        const totalExpenses = state.expenses.reduce((total, item) => {
             return (total = total + item.cost);
         }, 0);
         remaining = state.budget - totalExpenses;
@@ -113,6 +119,7 @@ export const AppProvider = (props) => {
                 budget: state.budget,
                 remaining: remaining,
                 dispatch,
+                setBudget,  // Adding setBudget to the context
                 Currency: state.Currency
             }}
         >

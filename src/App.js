@@ -23,7 +23,7 @@ const App = () => {
                     <div className='col-sm'>
                         <ExpenseTotal />
                     </div>
-                    <div className='col-sm'>
+                    <div style={{ backgroundcolor:'rgb(108, 231, 51)'}} className='col-sm'>
                         <Currency />
                     </div>
                 </div>
